@@ -1,3 +1,3 @@
 ### Leet code solutions
 
-A few solutions of [leetcode](www.leetcode.com) problems
+A few solutions of [leetcode](https://leetcode.com) problems
