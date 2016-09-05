@@ -4,17 +4,42 @@
  * @return {boolean}
  */
 const isIsomorphic = function(s, t) {
-  const sArray = Array.from(s);
-  const tArray = Array.from(t);
+  const sMap = {};
+  const tMap = {};
+  let sChar, tChar;
+  for (let i = 0; i < s.length; i++) {
+    sChar = s.charAt(i);
+    tChar = t.charAt(i);
 
-  const charactersMapS = sArray.reduce(_countCharacters, {});
-  const charactersMapT = tArray.reduce(_countCharacters, {});
+    if(!sMap[sChar] && !tMap[tChar]) {
+      sMap[sChar] = tChar;
+      tMap[tChar] = sChar;
+    } else if(sMap[sChar] !== tChar) {
+      return false;
+    }
+  }
+
+  return true;
 };
 
-const _countCharacters = (acc, ch) => {
-  if (acc[ch]) acc[ch] += 1;
-  else acc[ch] = 1;
-  return acc;
-};
+describe('Isomorphic strings', () => {
+  it('should return true for two isomorpic strings', () => {
+    const a = 'egg';
+    const b = 'add';
+    expect(isIsomorphic(a, b)).to.be.true;
+  });
+
+  it('should return true for two isomorpic strings', () => {
+    const a = 'aab';
+    const b = 'aba';
+    expect(isIsomorphic(a, b)).to.be.false;
+  });
+
+  it('should return false for two not isomorphic strings', () => {
+    const a = 'foo';
+    const b = 'bar';
+    expect(isIsomorphic(a, b)).to.be.false;
+  });
+});
 
 module.exports = isIsomorphic;
